@@ -1,28 +1,6 @@
-import { Button, Text, View } from "react-native";
-import type { AppType } from "@repo/backend";
-import { hc } from "hono/client";
-import { useEffect, useState } from "react";
-import { env } from "@/lib/env";
-
-const client = hc<AppType>(`${env.EXPO_PUBLIC_API_URL}/`);
+import { Text, View } from "react-native";
 
 export default function Index() {
-  const [data, setData] = useState("");
-  const [rand, setRand] = useState(0);
-
-  useEffect(() => {
-    console.log("fetching data");
-    client.index
-      .$get()
-      .then((r) => r.text())
-      .then((d) => {
-        console.log("data: ", d);
-        return d;
-      })
-      .then(setData)
-      .catch(console.error);
-  }, [rand]);
-
   return (
     <View
       style={{
@@ -32,8 +10,6 @@ export default function Index() {
       }}
     >
       <Text>Home Page</Text>
-      {data.length === 0 ? <Text>Loading...</Text> : <Text>{data}</Text>}
-      <Button onPress={() => setRand(Math.random())} title="Refresh" />
     </View>
   );
 }
