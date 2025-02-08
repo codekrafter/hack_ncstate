@@ -2,8 +2,9 @@ import { Button, Text, View } from "react-native";
 import type { AppType } from "@repo/backend";
 import { hc } from "hono/client";
 import { useEffect, useState } from "react";
+import { env } from "@/lib/env";
 
-const client = hc<AppType>("http://10.152.7.144:3000/");
+const client = hc<AppType>(`http://${env.EXPO_PUBLIC_API_URL}:3000/`);
 
 export default function Index() {
   const [data, setData] = useState("");
