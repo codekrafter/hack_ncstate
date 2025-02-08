@@ -11,13 +11,11 @@
     "dev": "turbo run dev"
   },
   "devDependencies": {
+    "@standard-schema/spec": "^1.0.0",
     "turbo": "^2.4.0"
   },
   "workspaces": [
     "apps/*",
     "packages/*"
-  ],
-  "dependencies": {
-    "hono": "^4.7.0"
-  }
+  ]
 }
