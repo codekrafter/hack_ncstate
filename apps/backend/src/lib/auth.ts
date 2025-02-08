@@ -12,7 +12,7 @@ const ENCODED_SECRET = new TextEncoder().encode(env.AUTH_SECRET);
 
 export interface AuthenticatedEnv {
   Variables: {
-    user: User;
+    user: Omit<User, "password">;
   };
 }
 
