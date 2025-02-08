@@ -3,7 +3,7 @@ import { Hono } from "hono";
 import { env } from "./lib/env";
 
 const app = new Hono().get("/", (c) => {
-  return c.text("Hello World!");
+  return c.text("Hello from Server!");
 });
 
 export type AppType = typeof app;

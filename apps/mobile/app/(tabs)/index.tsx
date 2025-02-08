@@ -4,7 +4,7 @@ import { hc } from "hono/client";
 import { useEffect, useState } from "react";
 import { env } from "@/lib/env";
 
-const client = hc<AppType>(`http://${env.EXPO_PUBLIC_API_URL}:3000/`);
+const client = hc<AppType>(`${env.EXPO_PUBLIC_API_URL}/`);
 
 export default function Index() {
   const [data, setData] = useState("");
