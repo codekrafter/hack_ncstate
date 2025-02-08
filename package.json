@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git+https://github.com/codekrafter/hack_ncstate.git"
   },
+  "scripts": {
+    "dev": "turbo run dev"
+  },
   "devDependencies": {
     "turbo": "^2.4.0"
   },
