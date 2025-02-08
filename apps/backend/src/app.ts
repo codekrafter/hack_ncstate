@@ -2,8 +2,10 @@ import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { env } from "./lib/env";
 import auth from "./routes/auth";
+import { authenticated } from "./lib/auth";
 
-const app = new Hono().route("/auth", auth);
+const app = new Hono()
+  .route("/auth", auth)
 
 export type AppType = typeof app;
 

@@ -5,8 +5,7 @@ import { db } from "../lib/db/connect";
 import { eq } from "drizzle-orm";
 import * as t from "@/lib/db/schema";
 import * as argon2 from "argon2";
-import * as jose from "jose";
-import { env } from "@/lib/env";
+import { authenticated, mintToken } from "@/lib/auth";
 
 export default new Hono()
   .post(
@@ -68,13 +67,7 @@ export default new Hono()
 
       return c.json({ token: await mintToken(user.id) });
     }
-  );
-
-function mintToken(userId: number) {
-  return new jose.SignJWT()
-    .setProtectedHeader({ alg: "HS256" })
-    .setIssuedAt()
-    .setSubject(userId.toString())
-    .setExpirationTime("24h")
-    .sign(new TextEncoder().encode(env.AUTH_SECRET));
-}
+  )
+  .get("/whoami", authenticated(), async (c) => {
+    return c.json(c.get("user"));
+  });
