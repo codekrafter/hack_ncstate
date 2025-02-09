@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { Text, View, TouchableOpacity, FlatList, ImageBackground, Modal, Pressable } from "react-native";
+import { useFonts } from 'expo-font';
 
 interface Quest {
     id: string;
@@ -12,6 +13,10 @@ interface Quest {
 export default function Quests() {
     const [activeTab, setActiveTab] = useState<'weekly' | 'monthly'>('weekly');
     const [selectedQuest, setSelectedQuest] = useState<Quest | null>(null);
+
+    const [fontsLoaded] = useFonts({
+        'red-alert': require('./assets/fonts/C&C Red Alert [INET].ttf'),
+    });
 
     const questBackgroundImage = require('../../assets/images/newPaper.png');
 
