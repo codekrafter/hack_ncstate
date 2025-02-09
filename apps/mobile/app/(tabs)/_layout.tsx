@@ -1,7 +1,11 @@
+import { useSession } from "@/lib/auth";
 import { Redirect, Tabs } from "expo-router";
+import { Text, View } from "react-native";
 
 export default function TabLayout() {
-  if (true) {
+  const { token } = useSession();
+
+  if (!token) {
     return <Redirect href="/login" />;
   }
 

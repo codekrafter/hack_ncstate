@@ -6,6 +6,7 @@ import { eq } from "drizzle-orm";
 import * as t from "@/lib/db/schema";
 import * as argon2 from "argon2";
 import { authenticated, mintToken } from "@/lib/auth";
+import { User } from "@/app";
 
 export default new Hono()
   .post(
@@ -28,13 +29,18 @@ export default new Hono()
         return c.json({ error: "Invalid username or password." }, 400);
       }
 
-      const isValid = await argon2.verify(password, user.password);
+      console.log("testing ");
+
+      const isValid = await argon2.verify(user.password, password);
 
       if (!isValid) {
         return c.json({ error: "Invalid username or password." }, 400);
       }
 
-      return c.json({ token: await mintToken(user.id) });
+      return c.json<{ token: string }>(
+        { token: await mintToken(user.id) },
+        200
+      );
     }
   )
   .post(
@@ -65,9 +71,9 @@ export default new Hono()
         })
         .returning();
 
-      return c.json({ token: await mintToken(user.id) });
+      return c.json<{ token: string }>({ token: await mintToken(user.id) });
     }
   )
   .get("/whoami", authenticated(), async (c) => {
-    return c.json(c.get("user"));
+    return c.json<User>(c.get("user"));
   });

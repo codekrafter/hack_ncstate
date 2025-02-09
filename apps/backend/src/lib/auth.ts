@@ -58,7 +58,7 @@ export const authenticated = () =>
     return await next();
   });
 
-export function mintToken(userId: number) {
+export function mintToken(userId: number): Promise<string> {
   return new jose.SignJWT()
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()

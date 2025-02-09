@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useSession } from "@/lib/auth";
+import { Redirect } from "expo-router";
+import { useState, useTransition } from "react";
 import { StyleSheet, View, Text, TextInput, Button } from "react-native";
 
 export default function Login() {
+  const { signIn, token } = useSession();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
+
+  if (token) {
+    return <Redirect href="/(tabs)" />;
+  }
 
   return (
     <View style={styles.container}>
@@ -27,8 +36,18 @@ export default function Login() {
           onChangeText={setPassword}
         />
       </View>
+      {error !== null && <Text style={styles.error}>{error}</Text>}
       <View style={styles.row}>
-        <Button title="Login" onPress={() => console.log("Login")} />
+        <Button
+          title="Login"
+          disabled={isPending}
+          onPress={() =>
+            startTransition(() => {
+              setError(null);
+              signIn(username, password).then(setError);
+            })
+          }
+        />
       </View>
     </View>
   );
@@ -56,5 +75,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
+  },
+  error: {
+    color: "red",
   },
 });
