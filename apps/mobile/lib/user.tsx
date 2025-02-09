@@ -11,10 +11,12 @@ import { useRpc } from "./rpc";
 
 interface UserContext {
   user: User | null;
+  refresh: () => Promise<void>;
 }
 
 const UserContext = createContext<UserContext>({
   user: null,
+  refresh: () => Promise.reject(),
 });
 
 export function useUser() {
@@ -26,7 +28,7 @@ export function useUser() {
     }
   }
 
-  return value.user;
+  return [value.user, value.refresh] as const;
 }
 
 export function UserProvider({ children }: PropsWithChildren) {
@@ -48,7 +50,19 @@ export function UserProvider({ children }: PropsWithChildren) {
     return abort;
   }, [rpc]);
 
+  const refresh = async () => {
+    rpc.auth.whoami.$get({}).then(async (res) => {
+      if (res.ok) {
+        await res.json().then(setUser);
+      } else {
+        setUser(null);
+      }
+    });
+  };
+
   return (
-    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ user, refresh }}>
+      {children}
+    </UserContext.Provider>
   );
 }

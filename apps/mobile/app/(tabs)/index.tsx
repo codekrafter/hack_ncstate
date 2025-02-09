@@ -1,6 +1,7 @@
 import { Text, View, TouchableOpacity, Modal, Pressable, ImageBackground } from "react-native";
 import * as Progress from "react-native-progress";
 import { useState } from "react";
+import { Link } from "expo-router";
 
 export default function Index() {
   // Main Progress Bar Segments
