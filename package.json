@@ -17,5 +17,12 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@react-native-picker/picker": "^2.11.0",
+    "hono": "^4.7.0",
+    "react-native-element-dropdown": "^2.12.4",
+    "react-native-paper": "^5.13.1",
+    "react-native-progress": "^5.0.1"
+  }
 }
