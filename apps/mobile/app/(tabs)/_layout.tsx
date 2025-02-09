@@ -1,6 +1,6 @@
 import { useSession } from "@/lib/auth";
 import { Redirect, Tabs } from "expo-router";
-import { Text, View } from "react-native";
+import { ImageBackground, Text, View } from "react-native";
 
 export default function TabLayout() {
   const { token } = useSession();
@@ -10,7 +10,33 @@ export default function TabLayout() {
   }
 
   return (
-    <Tabs screenOptions={{ headerShown: false }}>
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarInactiveTintColor: "white",
+        tabBarActiveTintColor: "#3D9970",
+        tabBarStyle: {
+          borderTopWidth: 0,
+          boxShadow: "0 -3px 5px rgba(0, 0, 0, 0.5)",
+        },
+        tabBarBackground: () => (
+          <ImageBackground
+            source={require("../../assets/images/wood-plank.jpg")}
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: "rgba(0,0,0,0.3)",
+              }}
+            />
+          </ImageBackground>
+        ),
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
