@@ -1,8 +1,15 @@
 import { relations } from "drizzle-orm";
-import { date, integer, pgEnum, pgTable, text } from "drizzle-orm/pg-core";
+import {
+  date,
+  integer,
+  pgEnum,
+  pgTable,
+  serial,
+  text,
+} from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
-  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  id: serial("id").primaryKey(),
   username: text("username").notNull(),
   password: text("password").notNull(),
 });
@@ -26,7 +33,7 @@ export const budgetType = pgEnum("budget_type", [
 ]);
 
 export const budgets = pgTable("budgets", {
-  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  id: serial("id").primaryKey(),
   type: budgetType("type").notNull(),
   name: text("name").notNull(),
   color: text("color").notNull(),
@@ -36,15 +43,11 @@ export const budgets = pgTable("budgets", {
 });
 
 export const budgetsRelations = relations(budgets, ({ one, many }) => ({
-  user: one(users, {
-    fields: [budgets.userId],
-    references: [users.id],
-  }),
   transactions: many(transactions),
 }));
 
 export const transactions = pgTable("transactions", {
-  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  id: serial("id").primaryKey(),
   amount: integer("amount").notNull(),
   memo: text("memo").notNull(),
   date: date("date").notNull(),
@@ -59,7 +62,7 @@ export const transactionsRelations = relations(transactions, ({ one }) => ({
 }));
 
 export const parties = pgTable("parties", {
-  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  id: serial("id").primaryKey(),
   name: text("name").notNull(),
 });
 
@@ -81,7 +84,7 @@ export const comparisonType = pgEnum("comparison_type", [
 ]);
 
 export const quests = pgTable("quests", {
-  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  id: serial("id").primaryKey(),
   type: questType("type").notNull().default("monthly"),
   name: text("name").notNull(),
   description: text("description").notNull(),

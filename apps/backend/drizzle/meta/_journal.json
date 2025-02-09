@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1739050829536,
-      "tag": "0000_sparkling_marvel_zombies",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1739051728568,
-      "tag": "0001_complete_supreme_intelligence",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1739064609427,
-      "tag": "0002_faithful_shriek",
+      "when": 1739066362046,
+      "tag": "0000_careful_mentallo",
       "breakpoints": true
     }
   ]
