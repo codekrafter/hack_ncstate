@@ -7,7 +7,7 @@ import { cors } from "hono/cors";
 const app = new Hono()
   .use(
     cors({
-      origin: ["localhost:8081"],
+      origin: ["http://localhost:8081"],
       credentials: true,
     })
   )
