@@ -1,6 +1,11 @@
-import { Text, View } from "react-native";
+import { useSession } from "@/lib/auth";
+import { useUser } from "@/lib/user";
+import { Button, Text, View } from "react-native";
 
 export default function Index() {
+  const { signOut } = useSession();
+  const user = useUser();
+
   return (
     <View
       style={{
@@ -9,7 +14,10 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Home Page</Text>
+      <View>
+        <Button onPress={signOut} title="Logout" />
+      </View>
+      <Text>Welcome {user?.username}</Text>
     </View>
   );
 }
