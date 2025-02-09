@@ -294,8 +294,7 @@ export default function Quests() {
                 bottom: 0,
                 left: 0,
                 right: 0,
-                height: "60%",
-                backgroundColor: "white",
+                height: 300,
                 borderTopLeftRadius: 20,
                 borderTopRightRadius: 20,
                 padding: 20,
@@ -307,28 +306,38 @@ export default function Quests() {
                 style={{ flex: 1 }}
               >
                 {selectedQuest && (
-                  <View>
-                    <Text
-                      style={{
-                        fontSize: 48,
-                        fontFamily: "red-alert",
-                        textAlign: "center",
-                      }}
-                    >
-                      {selectedQuest.title}
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 18,
-                        marginTop: 10,
-                        fontFamily: "red-alert",
-                        textAlign: "center",
-                      }}
-                    >
-                      {selectedQuest.points}
-                    </Text>
-                    {/* Add more quest details here */}
-                  </View>
+                  <ImageBackground source={require("../../assets/images/notebook.png")} style={{ height: 300 }}>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+                        <View style={{ width: "45%", height: "100%", justifyContent: "center", alignItems: "center"}}>
+                            <Text
+                            style={{
+                                fontSize: 40,
+                                fontFamily: "red-alert",
+                                textAlign: "center",
+                            }}
+                            >
+                            {selectedQuest.title}
+                            </Text>
+                        </View>
+                        <View style={{ width: "50%", height: "100%", justifyContent: "center", alignItems: "center"}}>
+                            <Text style={{ color: `${getColorForProgress(selectedQuest.progress)}`, fontSize: 40, fontFamily: "red-alert", textAlign: "center"}}>
+                                {selectedQuest.progress + "%"}
+                            </Text>
+                            <Text
+
+                            style={{
+                                fontSize: 18,
+                                marginTop: 10,
+                                fontFamily: "red-alert",
+                                textAlign: "center",
+                            }}
+                            >
+                            {selectedQuest.points}
+                            </Text>
+                        </View>
+                        {/* Add more quest details here */}
+                    </View>
+                  </ImageBackground>
                 )}
               </TouchableOpacity>
             </View>
