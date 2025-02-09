@@ -11,6 +11,8 @@ import { useState } from "react";
 import { ChevronLeft, ChevronRight, Edit2 } from "lucide-react-native";
 import { useUser } from "@/lib/user";
 import { useRpc } from "@/lib/rpc";
+import { useSession } from "@/lib/auth";
+import { Redirect } from "expo-router";
 
 interface CharacterItem {
   id: number;
@@ -94,6 +96,8 @@ const CharacterImage = ({
 };
 
 export default function Profile() {
+  const { token } = useSession();
+
   const [user, refreshUser] = useUser();
   const rpc = useRpc();
   const [selectedParts, setSelectedParts] = useState<SelectedParts>({
@@ -103,7 +107,9 @@ export default function Profile() {
     feet: 0,
   });
 
-  if (!user) {
+  if (!token) {
+    return <Redirect href="/login" />;
+  } else if (!user) {
     return <Text>Loading User...</Text>;
   }
 

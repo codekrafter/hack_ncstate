@@ -3,6 +3,7 @@ import { useStorageState } from "./useStorageState";
 import { hc } from "hono/client";
 import { AppType } from "@repo/backend";
 import { env } from "./env";
+import { router } from "expo-router";
 
 interface Values {
   token: string | null;

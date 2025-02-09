@@ -1,6 +1,6 @@
 import { useSession } from "@/lib/auth";
 import { Redirect, Tabs } from "expo-router";
-import { ImageBackground, Text, View } from "react-native";
+import { Image, ImageBackground, Text, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function TabLayout() {
@@ -44,6 +44,16 @@ export default function TabLayout() {
           options={{
             title: "Budget",
             href: "/",
+            tabBarIcon: () => (
+              <Image
+                source={require("../../assets/images/coinIcon.png")}
+                style={{
+                  width: 20,
+                  height: 20,
+                  resizeMode: "contain",
+                }}
+              />
+            ),
           }}
         />
         <Tabs.Screen
@@ -51,6 +61,16 @@ export default function TabLayout() {
           options={{
             title: "Quests",
             href: "/quests",
+            tabBarIcon: () => (
+              <Image
+                source={require("../../assets/images/bookIcon.png")}
+                style={{
+                  width: 20,
+                  height: 20,
+                  resizeMode: "contain",
+                }}
+              />
+            ),
           }}
         />
         <Tabs.Screen
@@ -58,6 +78,16 @@ export default function TabLayout() {
           options={{
             title: "Party",
             href: "/party",
+            tabBarIcon: () => (
+              <Image
+                source={require("../../assets/images/hatIcon.png")}
+                style={{
+                  width: 20,
+                  height: 20,
+                  resizeMode: "contain",
+                }}
+              />
+            ),
           }}
         />
         <Tabs.Screen
@@ -65,6 +95,16 @@ export default function TabLayout() {
           options={{
             title: "Leaderboard",
             href: "/leaderboard",
+            tabBarIcon: () => (
+              <Image
+                source={require("../../assets/images/ringIcon.png")}
+                style={{
+                  width: 20,
+                  height: 20,
+                  resizeMode: "contain",
+                }}
+              />
+            ),
           }}
         />
       </Tabs>
