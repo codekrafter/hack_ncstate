@@ -85,9 +85,9 @@ export default function Index() {
       source={require('../../assets/images/TavernBackground2.png')} 
       style={{ flex: 1, alignItems: "center", paddingTop: 40 }}>
 
-      <Text style={{color:"white", fontSize: 20, fontWeight: "bold" }}>Budget Overview</Text>
+      <Text style={{color:"white", fontSize: 40, fontWeight: "bold", fontFamily: "red-alert" }}>Budget Overview</Text>
       {/* Main MultiColor Progress Bar */}
-      <ImageBackground source ={require('../../assets/images/Moneybar.png')}style={{ position: "relative", width: 317, height: 77, marginVertical: 20}}>
+      <ImageBackground source ={require('../../assets/images/Moneybar.png')}style={{ position: "relative", width: 317, height: 77, marginVertical: 20, left:-30}}>
         <View style={{ flexDirection: 'row', top: 24, left:75}}>
           {mainSegments.map((segment, index) => {
             const previousProgress = mainSegments.slice(0, index).reduce((sum, seg) => sum + seg.progress, 0);
@@ -116,8 +116,9 @@ export default function Index() {
             );
           })}
         </View>
+         
       </ImageBackground>
-
+      <Text style={{color:"white", fontSize: 20, fontWeight: "bold", fontFamily: "red-alert", top:-25 }}>$1400 / $2000</Text>
       {/* Category Buttons to Open Popover */}
       {categories.map((category, index) => {
   const imgsrc = categoryImages[category.imageKey]; // Get the pre-mapped image
@@ -139,7 +140,7 @@ export default function Index() {
           resizeMode="stretch"
         > 
 
-          <Text style={{ color: "white", fontWeight: "bold", flex: 1, }}>{'\n' + "    " + category.name + "  " + category.percentage * 100 + "%"}</Text>
+          <Text style={{ color: "white", fontSize:16, fontFamily: "red-alert" }}>{'\n' + "    " + category.name + "  " + category.percentage * 100 + "%"}</Text>
         </ImageBackground>
       </TouchableOpacity>
     </View>
@@ -154,36 +155,44 @@ export default function Index() {
           visible={!!selectedCategory}
           onRequestClose={() => setSelectedCategory(null)}
         >
-          <View style={{ flex: 1, justifyContent: "flex-end", backgroundColor: "rgba(0,0,0,0.5)" }}>
-            <View style={{ 
-              backgroundColor: "white", 
-              padding: 20, 
-              width: "100%", 
-              borderTopLeftRadius: 20, 
-              borderTopRightRadius: 20 
+          <View style={{flex: 1, justifyContent: "flex-end", backgroundColor: "rgba(0,0,0,0.5)" }}>
+            <ImageBackground source={require('../../assets/images/notebook.png')}
+              style={{ 
+                bottom:25,
+                height:300
             }}>
-              
-              <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10 }}>{selectedCategory.name} Breakdown</Text>
-              
+              <View style={{  left:30, top: 35}}>
+              <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10, fontFamily: "red-alert", width:200 }}>{selectedCategory.name} Breakdown</Text>
+              <ImageBackground source={require('../../assets/images/Woodbar.png')} resizeMode = "stretch" style={{width:130}}>
               {/* Category-Specific MultiColor Progress Bar */}
-              <View style={{ position: "relative", width: 200, height: 10, marginBottom: 10 }}>
+              <View style={{ position: "relative", width: 200, height: 10, marginBottom: 10, flexDirection:"row" }}>
                 {selectedCategory.segments.map((segment, segIndex) => {
                   const previousProgress = selectedCategory.segments.slice(0, segIndex).reduce((sum, seg) => sum + seg.progress, 0);
                   return (
-                    <Progress.Bar
-                      key={segIndex}
-                      progress={segment.progress}
-                      width={200}
-                      color={segment.color}
-                      borderColor="transparent"
-                      style={{ position: "absolute", left: `${previousProgress * 100}%` }}
-                    />
+                    // <Progress.Bar
+                    //   key={segIndex}
+                    //   progress={segment.progress}
+                    //   width={200}
+                    //   color={segment.color}
+                    //   borderColor="transparent"
+                    //   style={{ position: "absolute", left: `${previousProgress * 100}%` }}
+                    // />
+                    <View
+                style={{
+                  backgroundColor: segment.color, 
+                  width: 120 * segment.progress,
+                  height: 6,
+                  left:4.5,
+                  top: 7
+                }}
+                />
                   );
                 })}
               </View>
+              </ImageBackground>
 
               {/* Key for Segments */}
-              <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 5 }}>
+              <View style={{ flexDirection: "column", flexWrap: "wrap", marginTop: 5 }}>
                 {selectedCategory.segments.map((segment, segIndex) => (
                   <View 
                     key={segIndex} 
@@ -203,20 +212,22 @@ export default function Index() {
                         borderRadius: 2 
                       }} 
                     />
-                    <Text style={{ fontSize: 12 }}>{segment.name}</Text>
+                    <Text style={{ fontSize: 12, fontFamily: "red-alert" }}>{segment.name + " - " + segment.progress * 100 + "%"}</Text>
                   </View>
                 ))}
               </View>
-
+              </View>
               {/* Close Button */}
+              <View style={{ borderRadius: 2, borderColor: 'black'}}>
               <Pressable 
                 onPress={() => setSelectedCategory(null)}
-                style={{ marginTop: 20, padding: 10, backgroundColor: "red", borderRadius: 5, alignItems: "center" }}
+                style={{ backgroundColor: "red", alignItems: "center", height:35, width:35, left:300, bottom:100 }}
               >
-                <Text style={{ color: "white", fontWeight: "bold" }}>Close</Text>
+                <Text style={{ color: "white", fontWeight: "bold", fontSize:30 }}>X</Text>
               </Pressable>
+              </View>
 
-            </View>
+            </ImageBackground>
           </View>
         </Modal>
       )}
