@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link } from "expo-router";
 import { User } from 'lucide-react-native';
 
+
 export default function Index() {
   // Main Progress Bar Segments
   const mainSegments = [
