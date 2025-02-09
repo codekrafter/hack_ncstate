@@ -2,6 +2,7 @@ import { Text, View, TouchableOpacity, Modal, Pressable, ImageBackground } from 
 import * as Progress from "react-native-progress";
 import { useState } from "react";
 import { Link } from "expo-router";
+import { User } from 'lucide-react-native';
 
 export default function Index() {
   // Main Progress Bar Segments
@@ -86,38 +87,30 @@ export default function Index() {
       style={{ flex: 1, alignItems: "center", paddingTop: 40 }}>
 
       <Text style={{color:"white", fontSize: 40, fontWeight: "bold", fontFamily: "red-alert" }}>Budget Overview</Text>
-      {/* Main MultiColor Progress Bar */}
-      <ImageBackground source ={require('../../assets/images/Moneybar.png')}style={{ position: "relative", width: 317, height: 77, marginVertical: 20, left:-30}}>
-        <View style={{ flexDirection: 'row', top: 24, left:75}}>
-          {mainSegments.map((segment, index) => {
-            const previousProgress = mainSegments.slice(0, index).reduce((sum, seg) => sum + seg.progress, 0);
-            return (
-              <View
-                style={{
-                  backgroundColor: segment.color, 
-                  width: 225 * segment.progress,
-                  height: 27
-                }}
-              ></View>
-              // <Progress.Bar
-              //   key={index}
-              //   progress={segment.progress}
-              //   width={300}
-              //   height={27}
-              //   color={segment.color}
-              //   borderColor="transparent"
-              //   style={{ 
-              //     position: "absolute", 
-              //     top: 23, 
-              //     left: `${previousProgress * 100}%` 
-              //   }}
-                
-              // />
-            );
-          })}
+      <View style={{ width: 400, flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: 14}}>
+        {/* Main MultiColor Progress Bar */}
+        <ImageBackground source ={require('../../assets/images/Moneybar.png')}style={{ width: 317, height: 77, marginVertical: 20 }}>
+          <View style={{ flexDirection: 'row', top: 24, left:75}}>
+            {mainSegments.map((segment, index) => {
+              const previousProgress = mainSegments.slice(0, index).reduce((sum, seg) => sum + seg.progress, 0);
+              return (
+                <View
+                  style={{
+                    backgroundColor: segment.color, 
+                    width: 225 * segment.progress,
+                    height: 27
+                  }}
+                ></View>
+              );
+            })}
+          </View>
+        </ImageBackground>
+        <View style={{ borderRadius: 100, borderWidth: 2, borderColor: "white", padding: 5}}>
+          <Link href="/profile">
+            <User size={30} color="white" />
+          </Link>
         </View>
-         
-      </ImageBackground>
+      </View>
       <Text style={{color:"white", fontSize: 20, fontWeight: "bold", fontFamily: "red-alert", top:-25 }}>$1400 / $2000</Text>
       {/* Category Buttons to Open Popover */}
       {categories.map((category, index) => {
