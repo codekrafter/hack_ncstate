@@ -15,7 +15,7 @@ export default function Quests() {
     const [selectedQuest, setSelectedQuest] = useState<Quest | null>(null);
 
     const [fontsLoaded] = useFonts({
-        'red-alert': require('./assets/fonts/C&C Red Alert [INET].ttf'),
+        'red-alert': require('../../assets/fonts/C&C Red Alert [INET].ttf'),
     });
 
     const questBackgroundImage = require('../../assets/images/newPaper.png');
