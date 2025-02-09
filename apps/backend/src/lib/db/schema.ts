@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { integer, pgEnum, pgTable, text } from "drizzle-orm/pg-core";
+import { date, integer, pgEnum, pgTable, text } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
@@ -35,10 +35,26 @@ export const budgets = pgTable("budgets", {
   userId: integer("user_id").references(() => users.id),
 });
 
-export const budgetsRelations = relations(budgets, ({ one }) => ({
+export const budgetsRelations = relations(budgets, ({ one, many }) => ({
   user: one(users, {
     fields: [budgets.userId],
     references: [users.id],
+  }),
+  transactions: many(transactions),
+}));
+
+export const transactions = pgTable("transactions", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  amount: integer("amount").notNull(),
+  memo: text("memo").notNull(),
+  date: date("date").notNull(),
+  budgetId: integer("budget_id").references(() => budgets.id),
+});
+
+export const transactionsRelations = relations(transactions, ({ one }) => ({
+  budget: one(budgets, {
+    fields: [transactions.budgetId],
+    references: [budgets.id],
   }),
 }));
 
