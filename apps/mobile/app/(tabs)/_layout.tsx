@@ -1,35 +1,42 @@
-import { Tabs } from 'expo-router';
+import { useSession } from "@/lib/auth";
+import { Redirect, Tabs } from "expo-router";
+import { Text, View } from "react-native";
 
 export default function TabLayout() {
+  const { token } = useSession();
+
+  if (!token) {
+    return <Redirect href="/login" />;
+  }
+
   return (
     <Tabs screenOptions={{ headerShown: false }}>
-      <Tabs.Screen 
-        name="index" 
+      <Tabs.Screen
+        name="index"
         options={{
-
-          title: 'Budget',
-          href: '/'
-        }} 
+          title: "Budget",
+          href: "/",
+        }}
       />
-      <Tabs.Screen 
+      <Tabs.Screen
         name="quests"
         options={{
-          title: 'Quests',
-          href: '/quests'
+          title: "Quests",
+          href: "/quests",
         }}
       />
-      <Tabs.Screen 
+      <Tabs.Screen
         name="party"
         options={{
-          title: 'Party',
-          href: '/party'
+          title: "Party",
+          href: "/party",
         }}
       />
-      <Tabs.Screen 
+      <Tabs.Screen
         name="leaderboard"
         options={{
-          title: 'Leaderboard',
-          href: '/leaderboard'
+          title: "Leaderboard",
+          href: "/leaderboard",
         }}
       />
     </Tabs>

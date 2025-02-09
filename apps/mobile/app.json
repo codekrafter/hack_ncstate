@@ -32,10 +32,19 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "fonts": [
+      {
+        "asset": "./assets/fonts/C&C Red Alert [INET].ttf"
+      },
+      {
+        "asset": "./assets/fonts/C&C Red Alert [LAN].ttf"
+      }
+    ]
   }
 }
