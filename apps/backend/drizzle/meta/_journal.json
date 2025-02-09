@@ -15,6 +15,13 @@
       "when": 1739051728568,
       "tag": "0001_complete_supreme_intelligence",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1739064609427,
+      "tag": "0002_faithful_shriek",
+      "breakpoints": true
     }
   ]
 }
