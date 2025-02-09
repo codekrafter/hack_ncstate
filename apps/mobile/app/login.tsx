@@ -1,7 +1,8 @@
 import { useSession } from "@/lib/auth";
 import { Redirect } from "expo-router";
 import { useState, useTransition } from "react";
-import { StyleSheet, View, Text, TextInput, Button } from "react-native";
+import { StyleSheet, View, Text, TextInput, Button, ImageBackground } from "react-native";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 export default function Login() {
   const { signIn, token } = useSession();
@@ -13,10 +14,10 @@ export default function Login() {
   if (token) {
     return <Redirect href="/(tabs)" />;
   }
-
+  
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+    
+    <ImageBackground source={require('../assets/images/loginpage.jpg')} style={{height: '100%'}}>
       <View style={styles.row}>
         <TextInput
           style={styles.input}
@@ -49,7 +50,9 @@ export default function Login() {
           }
         />
       </View>
-    </View>
+      
+    </ImageBackground>
+    
   );
 }
 
@@ -62,6 +65,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   row: {
+    backgroundColor: "white",
+    width:'80%',
+    alignSelf: "center",
     paddingHorizontal: 50,
     flexDirection: "row",
   },
@@ -79,4 +85,5 @@ const styles = StyleSheet.create({
   error: {
     color: "red",
   },
+  
 });
