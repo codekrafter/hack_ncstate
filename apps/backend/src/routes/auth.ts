@@ -76,4 +76,40 @@ export default new Hono()
   )
   .get("/whoami", authenticated(), async (c) => {
     return c.json<User>(c.get("user"));
-  });
+  })
+  .patch(
+    "/me",
+    authenticated(),
+    sValidator("json", z.object({ username: z.string() })),
+    async (c) => {
+      const { username } = c.req.valid("json");
+
+      const user = await db.query.users.findFirst({
+        where: eq(t.users.id, c.get("user").id),
+        columns: { username: true },
+      });
+
+      if (!user || user.username === username) {
+        return c.json(
+          { error: "Username cannot be the same as current username." },
+          400
+        );
+      }
+
+      const conflict = await db.query.users.findFirst({
+        where: eq(t.users.username, username),
+      });
+
+      if (conflict) {
+        return c.json({ error: "Username already taken." }, 400);
+      }
+
+      const [updated] = await db
+        .update(t.users)
+        .set({ username })
+        .where(eq(t.users.id, c.get("user").id))
+        .returning();
+
+      return c.json(updated);
+    }
+  );
